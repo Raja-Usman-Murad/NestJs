@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Request,
   Response,
@@ -41,6 +42,28 @@ export class ListController {
   })
   getAlllist() {
     return this.listService.getAlllist();
+  }
+
+  @Get('/:id')
+  @ApiOperation({
+    summary: 'Get specific list',
+    description: 'Get a specific list',
+  })
+  @ApiResponse({
+    status: 200,
+    description: `List fetched successfully`,
+  })
+  @ApiResponse({
+    status: 404,
+    description: `MESSAGE.BAD_REQUEST`,
+  })
+  @ApiInternalServerErrorResponse({
+    status: 502,
+    description: `MESSAGE.DB_OPERATION_FAILED`,
+  })
+  getList(@Param('id') id: string) {
+    console.log(id, 'id');
+    return this.listService.getList(id);
   }
 
   @Post()

@@ -43,4 +43,22 @@ export class ListService {
       return errorResponse(400, error?.message ?? 'Server Error');
     }
   }
+
+  async findlist(id: string) {
+    let list;
+    try {
+      list = await this.ListModel.findById(id).exec();
+      return list || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async getList(listId: string) {
+    const list = await this.findlist(listId);
+    if (!list) {
+      return successResponse(null, 200, 'list not found');
+    }
+    return successResponse(list, 200, 'list found successfully');
+  }
 }
