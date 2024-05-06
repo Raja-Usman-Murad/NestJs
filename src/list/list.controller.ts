@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   Request,
   Response,
@@ -17,6 +18,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateListDto } from './dto/create-list.dto';
+import { UpdateListDto } from './dto/update-list.dto';
 
 @Controller('list')
 @ApiTags('List APIs')
@@ -85,5 +87,29 @@ export class ListController {
   })
   async createList(@Body() CreateListDto: CreateListDto) {
     return await this.listService.createList(CreateListDto);
+  }
+
+  @Patch('/:id')
+  @ApiOperation({
+    summary: 'Update list',
+    description: 'Update an existing list',
+  })
+  @ApiResponse({
+    status: 200,
+    description: `List updated successfully`,
+  })
+  @ApiResponse({
+    status: 404,
+    description: `BAD_REQUEST`,
+  })
+  @ApiInternalServerErrorResponse({
+    status: 502,
+    description: `DB_OPERATION_FAILED`,
+  })
+  async updateList(
+    @Body() UpdateListDto: UpdateListDto,
+    @Param('id') id: string,
+  ) {
+    return await this.listService.updateList(UpdateListDto, id);
   }
 }

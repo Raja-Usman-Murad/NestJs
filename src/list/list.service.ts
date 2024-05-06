@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { List } from './interfaces/list.interface';
 import { errorResponse } from 'utils/error.message';
 import { successResponse } from 'utils/success.message';
+import { UpdateListDto } from './dto/update-list.dto';
 
 @Injectable()
 export class ListService {
@@ -60,5 +61,26 @@ export class ListService {
       return successResponse(null, 200, 'list not found');
     }
     return successResponse(list, 200, 'list found successfully');
+  }
+
+  async updateList(UpdateListDto: UpdateListDto, listId: string) {
+    try {
+      const list = await this.findlist(listId);
+      if (!list) {
+        return successResponse(null, 200, 'list not found');
+      }
+      const updatedList = await this.ListModel.findByIdAndUpdate(
+        listId,
+        UpdateListDto,
+        {
+          new: true,
+          runValidators: true,
+        },
+      );
+      return successResponse(updatedList, 200, 'list updated successfully');
+    } catch (error) {
+      console.log(error);
+      return errorResponse(400, error?.message ?? 'Server Error');
+    }
   }
 }
