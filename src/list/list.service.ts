@@ -23,7 +23,11 @@ export class ListService {
       const savedCreatedList = await createdList.save();
       console.log(savedCreatedList, 'savedCreatedList');
 
-      successResponse(savedCreatedList, 201, 'list created successfully');
+      return successResponse(
+        savedCreatedList,
+        201,
+        'list created successfully',
+      );
     } catch (error) {
       console.log(error);
       return errorResponse(400, error?.message ?? 'Server Error');
