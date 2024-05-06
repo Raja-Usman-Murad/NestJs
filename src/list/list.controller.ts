@@ -23,18 +23,13 @@ export class ListController {
   constructor(private readonly listService: ListService) {}
 
   @Get()
-  getlist(): string {
-    return this.listService.getList();
-  }
-
-  @Post()
   @ApiOperation({
-    summary: 'create list',
-    description: 'Create a new list',
+    summary: 'Get full list',
+    description: 'Get a full list of lists',
   })
   @ApiResponse({
     status: 200,
-    description: `MESSAGE.USER_REG_SUCCESS`,
+    description: `Lists fetched successfully`,
   })
   @ApiResponse({
     status: 404,
@@ -43,6 +38,27 @@ export class ListController {
   @ApiInternalServerErrorResponse({
     status: 502,
     description: `MESSAGE.DB_OPERATION_FAILED`,
+  })
+  getAlllist() {
+    return this.listService.getAlllist();
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: 'Create new list',
+    description: 'Create a new list',
+  })
+  @ApiResponse({
+    status: 201,
+    description: `List created successfully`,
+  })
+  @ApiResponse({
+    status: 404,
+    description: `BAD_REQUEST`,
+  })
+  @ApiInternalServerErrorResponse({
+    status: 502,
+    description: `DB_OPERATION_FAILED`,
   })
   async createList(@Body() CreateListDto: CreateListDto) {
     return await this.listService.createList(CreateListDto);
