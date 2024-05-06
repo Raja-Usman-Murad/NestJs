@@ -3,8 +3,8 @@ import { CreateListDto } from './dto/create-list.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { List } from './interfaces/list.interface';
-import { errorResponse } from 'utils/error.message';
-import { successResponse } from 'utils/success.message';
+import { errorResponse } from '../../utils/error.message';
+import { successResponse } from '../../utils/success.message';
 import { UpdateListDto } from './dto/update-list.dto';
 
 @Injectable()

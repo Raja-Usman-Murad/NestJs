@@ -6,7 +6,7 @@ import {
   IsString,
   Matches,
 } from 'class-validator';
-import { MESSAGE } from 'utils/constants/response.message';
+import { MESSAGE } from '../../../utils/constants/response.message';
 
 // import config from '../../../config/config';
 
