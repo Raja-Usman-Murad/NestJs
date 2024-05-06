@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Request, Response } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  Response,
+} from '@nestjs/common';
 import { ListService } from './list.service';
 import {
   ApiBody,
@@ -8,8 +16,6 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateListDto } from './dto/create-list.dto';
-import { errorResponse } from 'utils/error.message';
-import { successResponse } from 'utils/success.message';
 
 @Controller('list')
 @ApiTags('List APIs')
@@ -39,7 +45,6 @@ export class ListController {
     description: `MESSAGE.DB_OPERATION_FAILED`,
   })
   async createList(@Body() CreateListDto: CreateListDto) {
-    const data = this.listService.createList(CreateListDto);
-    return successResponse(CreateListDto, 201, 'list created successfully');
+    return await this.listService.createList(CreateListDto);
   }
 }
