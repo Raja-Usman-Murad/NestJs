@@ -9,9 +9,19 @@ import { successResponse } from 'utils/success.message';
 @Injectable()
 export class ListService {
   constructor(@InjectModel('List') private readonly ListModel) {}
-  getList(): string {
-    return 'All list Here';
+
+  async getAlllist() {
+    try {
+      const lists = await this.ListModel.find({});
+
+      console.log(lists);
+      return successResponse(lists, 200, 'list fetched successfully');
+    } catch (error) {
+      console.log(error);
+      return errorResponse(400, error?.message ?? 'Server Error');
+    }
   }
+
   async createList(CreateListDto: CreateListDto) {
     try {
       const createdList = new this.ListModel({
