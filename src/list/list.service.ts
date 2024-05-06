@@ -83,4 +83,18 @@ export class ListService {
       return errorResponse(400, error?.message ?? 'Server Error');
     }
   }
+
+  async deleteList(listId: string) {
+    try {
+      const list = await this.findlist(listId);
+      if (!list) {
+        return successResponse(null, 200, 'list not found');
+      }
+      const deletedList = await this.ListModel.findByIdAndDelete(listId);
+      return successResponse(deletedList, 200, 'list deleted successfully');
+    } catch (error) {
+      console.log(error);
+      return errorResponse(400, error?.message ?? 'Server Error');
+    }
+  }
 }

@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -111,5 +112,26 @@ export class ListController {
     @Param('id') id: string,
   ) {
     return await this.listService.updateList(UpdateListDto, id);
+  }
+
+  @Delete('/:id')
+  @ApiOperation({
+    summary: 'Delete list',
+    description: 'Delete an existing list',
+  })
+  @ApiResponse({
+    status: 200,
+    description: `List deleted successfully`,
+  })
+  @ApiResponse({
+    status: 404,
+    description: `BAD_REQUEST`,
+  })
+  @ApiInternalServerErrorResponse({
+    status: 502,
+    description: `DB_OPERATION_FAILED`,
+  })
+  async deleteList(@Param('id') id: string) {
+    return await this.listService.deleteList(id);
   }
 }
