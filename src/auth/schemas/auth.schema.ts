@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
 
 export const AuthsSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -25,8 +24,4 @@ AuthsSchema.pre('save', async function (next) {
 
 AuthsSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
-};
-
-AuthsSchema.methods.generateToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET);
 };
