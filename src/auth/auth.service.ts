@@ -18,7 +18,7 @@ export class AuthService {
     try {
       const user = await this.findUser('email', CreateUserDto.email);
       if (user) {
-        return successResponse(null, 200, 'User Already Exist');
+        return errorResponse(404, 'User Already Exist');
       } else {
         let user = await this.addUser(CreateUserDto);
 
@@ -27,16 +27,16 @@ export class AuthService {
       }
     } catch (error) {
       console.log(error);
-      return errorResponse(400, error?.message ?? 'Server Error');
+      return errorResponse(500, error?.message ?? 'Server Error');
     }
   }
   async signinUser(SigninUserDto: SigninUserDto) {
     try {
       const user = await this.findUser('email', SigninUserDto.email);
       if (!user) {
-        return successResponse(null, 200, 'User Not Found');
+        return errorResponse(404, 'User Not Found');
       } else if (!(await user.matchPassword(SigninUserDto.password))) {
-        return successResponse(null, 200, 'Invalid Credentials');
+        return errorResponse(404, 'Invalid Credentials');
       } else {
         user.password = undefined;
 
@@ -74,7 +74,7 @@ export class AuthService {
       }
     } catch (error) {
       console.log(error);
-      return errorResponse(400, error?.message ?? 'Server Error');
+      return errorResponse(500, error?.message ?? 'Server Error');
     }
   }
 
