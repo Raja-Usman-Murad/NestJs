@@ -29,6 +29,7 @@ export class ListService {
         title: CreateListDto.title,
         description: CreateListDto.description,
         email: CreateListDto.email,
+        image: CreateListDto.image,
         createdAt: new Date().getTime(),
       });
       const savedCreatedList = await createdList.save();

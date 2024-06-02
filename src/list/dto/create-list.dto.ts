@@ -11,7 +11,7 @@ import { MESSAGE } from '../../../utils/constants/response.message';
 // import config from '../../../config/config';
 
 export class CreateListDto {
-  @ApiProperty({ type: String, default: 'Match' })
+  @ApiProperty({ type: String, default: 'list default' })
   @IsNotEmpty({ message: `Title ${MESSAGE.MUST_BE_PROVIDED}` })
   @IsString({ message: `Title ${MESSAGE.MUST_BE_STRING}` })
   title: String;
@@ -29,4 +29,13 @@ export class CreateListDto {
   //   message: `${MESSAGE.PASSWORD_REQUIREMENTS}`,
   // })
   description: string;
+
+  @ApiProperty({
+    type: String,
+    default:
+      'https://res.cloudinary.com/dvrhjqoxc/image/upload/v1717327421/nextjs-nestjs-practice-project/ld5gzkmslgrkqlg2m0nb.jpg',
+  })
+  @IsNotEmpty({ message: `Image URL ${MESSAGE.MUST_BE_PROVIDED}` })
+  @IsString({ message: `Image URL ${MESSAGE.MUST_BE_STRING}` })
+  image: String;
 }

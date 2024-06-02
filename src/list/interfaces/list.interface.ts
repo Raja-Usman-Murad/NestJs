@@ -5,5 +5,6 @@ export interface List extends Document {
   title: string;
   description: string;
   email: string;
+  image: string;
   createdAt: string;
 }
