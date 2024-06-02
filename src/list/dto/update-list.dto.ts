@@ -29,4 +29,13 @@ export class UpdateListDto {
   //   message: `${MESSAGE.PASSWORD_REQUIREMENTS}`,
   // })
   description: string;
+
+  @ApiProperty({
+    type: String,
+    default:
+      'https://res.cloudinary.com/dvrhjqoxc/image/upload/v1717327421/nextjs-nestjs-practice-project/ld5gzkmslgrkqlg2m0nb.jpg',
+  })
+  @IsNotEmpty({ message: `Image URL ${MESSAGE.MUST_BE_PROVIDED}` })
+  @IsString({ message: `Image URL ${MESSAGE.MUST_BE_STRING}` })
+  image: String;
 }
