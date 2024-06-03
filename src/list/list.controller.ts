@@ -7,11 +7,13 @@ import {
   Param,
   Patch,
   Post,
-  Request,
+  Req,
   Response,
+  UseGuards,
 } from '@nestjs/common';
 import { ListService } from './list.service';
 import {
+  ApiBearerAuth,
   ApiBody,
   ApiInternalServerErrorResponse,
   ApiOperation,
@@ -20,6 +22,7 @@ import {
 } from '@nestjs/swagger';
 import { CreateListDto } from './dto/create-list.dto';
 import { UpdateListDto } from './dto/update-list.dto';
+import { Request } from 'express';
 
 @Controller('list')
 @ApiTags('List APIs')
@@ -27,6 +30,7 @@ export class ListController {
   constructor(private readonly listService: ListService) {}
 
   @Get()
+  @ApiBearerAuth('JWT-auth')
   @ApiOperation({
     summary: 'Get full list',
     description: 'Get a full list of lists',
@@ -43,8 +47,8 @@ export class ListController {
     status: 502,
     description: `MESSAGE.DB_OPERATION_FAILED`,
   })
-  getAlllist() {
-    return this.listService.getAlllist();
+  getAlllist(@Req() request: Request) {
+    return this.listService.getAlllist(request);
   }
 
   @Get('/:id')

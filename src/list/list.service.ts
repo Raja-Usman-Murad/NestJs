@@ -11,8 +11,10 @@ import { UpdateListDto } from './dto/update-list.dto';
 export class ListService {
   constructor(@InjectModel('List') private readonly ListModel) {}
 
-  async getAlllist() {
+  async getAlllist(request) {
     try {
+      console.log(request.user.userId, 'request******');
+
       const lists = await this.ListModel.find({});
 
       console.log(lists);
