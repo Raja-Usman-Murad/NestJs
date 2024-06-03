@@ -62,7 +62,7 @@ export class AuthService {
         const payloadForToken = { id: cObj };
         const access_token = await this.jwtService.signAsync(payloadForToken, {
           secret: process.env.JWT_SECRET,
-          expiresIn: process.env.SESSION_TIME,
+          expiresIn: parseInt(process.env.SESSION_TIME, 10),
         });
 
         const responseData = {
